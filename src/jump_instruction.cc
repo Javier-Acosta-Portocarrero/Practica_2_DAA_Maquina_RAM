@@ -7,20 +7,13 @@
 // Autor: Javier Acosta Portocarrero
 // Autor: Gabriel Gallardo Noda
 // Fecha: 17/02/2024
-// Archivo add_instruction.h: fichero de declaracion.
-// Contiene la declaracion de la clase AddInstruction.
+// Archivo jump_instruction.cc: fichero de definicion.
+// Contiene la definicion de la clase JumpInstruction.
 
-#ifndef ADD_INSTRUCTION_H_
-#define ADD_INSTRUCTION_H_
+#include "jump_instruction.h"
 
-#include "instruction.h"
-
-class AddInstruction : Instruction {
- public:
-  AddInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
-  ~AddInstruction() = default;
-  
-  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) override;
-};
-
-#endif
+void JumpInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+  // We allow registers to store addresses to jump.
+  int address = static_cast<int>(GetOperand() -> GetOperandValue(data)); 
+  data.SetProgramCounter(address);
+}
