@@ -26,6 +26,7 @@ class Instruction {
   virtual void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) const = 0;
  private:
   Operand* operand_;
+  unsigned line{0};
 };
 
 #endif
