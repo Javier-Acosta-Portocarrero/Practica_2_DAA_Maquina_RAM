@@ -23,6 +23,7 @@ class OutputTape {
   
   float GetNextOutput();
   void AddOutput(const float& output);
+  bool EmptyTape() const { return tape_.empty();}
  private:
   std::stack<float> tape_;
 };

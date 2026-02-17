@@ -11,8 +11,12 @@
 // Contiene la definicion de la clase InputTape.
 
 #include "input_tape.h"
+#include <stdexcept>
 
 float InputTape::GetNextInput() {
+  if (tape_.empty()) {
+    throw std::out_of_range("Input tape is empty");
+  }
   const float input = tape_.front();
   tape_.pop();
   return input;

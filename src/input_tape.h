@@ -17,7 +17,7 @@
 
 class InputTape {
  public:
-  InputTape(std::queue<float> tape) : tape_(tape) {}
+  InputTape(const std::queue<float>& tape) : tape_(tape) {}
   InputTape() = default;
   ~InputTape() = default;
   
