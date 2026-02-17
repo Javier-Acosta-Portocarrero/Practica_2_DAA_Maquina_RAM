@@ -20,7 +20,8 @@ class Operand {
   virtual ~Operand() = default;
 
   virtual float GetOperandValue(const DataMemory& data) const = 0;
-  virtual int GetOperandIndex() const = 0;
+  // int because -1 means constant operand, etc.
+  virtual int GetOperandIndex(const DataMemory& data) const = 0;
 };
 
 #endif

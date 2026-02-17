@@ -1,0 +1,19 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingenieria y Tecnologia
+// Grado en Ingenieria Informatica
+// Asignatura: Diseño y Analisis de Algoritmos
+// Curso: 3º
+// Practica 2: Máquina RAM
+// Autor: Javier Acosta Portocarrero
+// Autor: Gabriel Gallardo Noda
+// Fecha: 17/02/2024
+// Archivo add_instruction.cc: fichero de definicion.
+// Contiene la definicion de la clase AddInstruction.
+
+#include "add_instruction.h"
+
+void AddInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+  float value_to_add = GetOperand() -> GetOperandValue(data); 
+  // Register 0 --> accumulator
+  data.SetRegisterValue(0, data.GetRegisterValue(0) + value_to_add);
+}

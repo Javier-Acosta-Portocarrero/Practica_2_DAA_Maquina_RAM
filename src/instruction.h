@@ -20,13 +20,17 @@
 
 class Instruction {
  public:
+  Instruction(Operand* operand, unsigned line) : operand_{operand}, line_{line} {}
   virtual ~Instruction() { delete operand_;}
   
   // Must throw an exception if the instruction is illegal
-  virtual void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) const = 0;
+  virtual void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) = 0;
+
+  Operand* GetOperand() { return operand_;}
+  unsigned GetLine() const { return line_;}
  private:
   Operand* operand_;
-  unsigned line{0};
+  unsigned line_{0};
 };
 
 #endif
