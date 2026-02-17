@@ -20,9 +20,14 @@ class DataMemory {
   DataMemory();
   
   float GetRegisterValue(unsigned register_index) const;
+  unsigned GetProgramCounter() const { return program_counter_register_;}
+  void SetProgramCounter(unsigned program_counter) { program_counter_register_ = program_counter;}
   void SetRegisterValue(unsigned register_index, float value);
+
+  void IncrementProgramCounter() { ++program_counter_register_;}
  private:
- std::vector<float> memory_;
+  std::vector<float> memory_;
+  unsigned program_counter_register_{0};
 };
 
 #endif
