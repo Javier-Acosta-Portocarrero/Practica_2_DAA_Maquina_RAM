@@ -13,7 +13,7 @@
 #ifndef OPERAND_H_
 #define OPERAND_H_
 
-#include "data_memory.h"
+#include "../data_memory/data_memory.h"
 
 class Operand {
  public:

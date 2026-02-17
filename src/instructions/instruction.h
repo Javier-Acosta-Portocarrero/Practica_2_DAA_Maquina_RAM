@@ -13,10 +13,10 @@
 #ifndef INSTRUCTION_H_
 #define INSTRUCTION_H_
 
-#include "operand.h"
-#include "data_memory.h"
-#include "input_tape.h"
-#include "output_tape.h"
+#include "../operands/operand.h"
+#include "../data_memory/data_memory.h"
+#include "../input_tape/input_tape.h"
+#include "../output_tape/output_tape.h"
 
 class Instruction {
  public:
