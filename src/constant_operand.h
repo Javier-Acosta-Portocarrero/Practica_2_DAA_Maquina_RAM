@@ -21,6 +21,7 @@ class ConstantOperand : Operand {
   ~ConstantOperand() = default;
 
   float GetOperandValue(const DataMemory& data) const override { return value_;}
+  int GetOperandIndex(const DataMemory& data) const override { return value_;}
  private:
   float value_{0.0};
 };

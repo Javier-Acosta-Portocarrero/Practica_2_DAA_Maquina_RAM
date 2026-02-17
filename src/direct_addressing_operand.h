@@ -21,6 +21,7 @@ class DirectAddressingOperand : Operand {
   ~DirectAddressingOperand() = default;
 
   float GetOperandValue(const DataMemory& data) const override;
+  int GetOperandIndex() const override { return register_index_;}
  private:
   unsigned register_index_{0};
 };
