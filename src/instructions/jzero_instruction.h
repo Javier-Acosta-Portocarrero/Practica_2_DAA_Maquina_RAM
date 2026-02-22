@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class JzeroInstruction : Instruction {
+class JzeroInstruction : public Instruction {
  public:
   JzeroInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~JzeroInstruction() = default;

@@ -15,7 +15,7 @@
 
 #include "operand.h"
 
-class IndirectAddressingOperand : Operand {
+class IndirectAddressingOperand : public Operand {
  public:
   IndirectAddressingOperand(unsigned indirect_register_index) : indirect_register_index_{indirect_register_index} {}
   ~IndirectAddressingOperand() = default;

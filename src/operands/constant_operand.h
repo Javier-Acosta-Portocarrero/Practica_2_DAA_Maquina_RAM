@@ -15,7 +15,7 @@
 
 #include "operand.h"
 
-class ConstantOperand : Operand {
+class ConstantOperand : public Operand {
  public:
   ConstantOperand(float value) : value_{value} {}
   ~ConstantOperand() = default;

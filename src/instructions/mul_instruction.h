@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class MulInstruction : Instruction {
+class MulInstruction : public Instruction {
  public:
   MulInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~MulInstruction() = default;

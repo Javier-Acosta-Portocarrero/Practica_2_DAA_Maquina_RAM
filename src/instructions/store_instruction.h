@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class StoreInstruction : Instruction {
+class StoreInstruction : public Instruction {
  public:
   StoreInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~StoreInstruction() = default;

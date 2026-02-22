@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class ReadInstruction : Instruction {
+class ReadInstruction : public Instruction {
  public:
   ReadInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~ReadInstruction() = default;

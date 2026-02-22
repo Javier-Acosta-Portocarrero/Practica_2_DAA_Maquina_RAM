@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class DivInstruction : Instruction {
+class DivInstruction : public Instruction {
  public:
   DivInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~DivInstruction() = default;

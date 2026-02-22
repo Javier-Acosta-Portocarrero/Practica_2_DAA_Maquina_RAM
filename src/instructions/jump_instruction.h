@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class JumpInstruction : Instruction {
+class JumpInstruction : public Instruction {
  public:
   JumpInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~JumpInstruction() = default;

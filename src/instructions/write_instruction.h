@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class WriteInstruction : Instruction {
+class WriteInstruction : public Instruction {
  public:
   WriteInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~WriteInstruction() = default;

@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class SubInstruction : Instruction {
+class SubInstruction : public Instruction {
  public:
   SubInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~SubInstruction() = default;

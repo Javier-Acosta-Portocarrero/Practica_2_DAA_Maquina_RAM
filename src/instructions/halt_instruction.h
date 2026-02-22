@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class HaltInstruction : Instruction {
+class HaltInstruction : public Instruction {
  public:
   HaltInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~HaltInstruction() = default;

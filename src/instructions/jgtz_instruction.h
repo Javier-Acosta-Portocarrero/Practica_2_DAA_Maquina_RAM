@@ -15,7 +15,7 @@
 
 #include "instruction.h"
 
-class JgtzInstruction : Instruction {
+class JgtzInstruction : public Instruction {
  public:
   JgtzInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~JgtzInstruction() = default;
