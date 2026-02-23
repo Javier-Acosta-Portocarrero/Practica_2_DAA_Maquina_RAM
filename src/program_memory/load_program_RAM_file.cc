@@ -40,15 +40,15 @@ ProgramMemory LoadProgramRAMFile::Load() {
   unsigned linea{1};
 
   while (std::getline(program_input_stream, line)) {
+    // Remove leading whitespace
+    size_t first = line.find_first_not_of(" \t");
+    if (first != std::string::npos) line.erase(0, first);
     if (line.empty()) continue;
     if (line[0] == '#') continue;
     // Make it uppercase
     for (char& character : line) {
       character = std::toupper(character);
     }
-    size_t first = line.find_first_not_of(" \t");
-    if (first != std::string::npos) line.erase(0, first);
-
     try {
       Instruction* inst = ParseInstruction(line, linea, program);
       if (inst) {
@@ -83,6 +83,7 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
     program.AddLabel(line_number, label);
     currentLine.erase(0, colon_pos + 1);
 
+    // Remove leading whitespace after label.
     size_t first = currentLine.find_first_not_of(" \t");
     if (first == std::string::npos) return nullptr;  
     currentLine.erase(0, first);
@@ -137,7 +138,7 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
   if (opcode == "WRITE") {
     return new WriteInstruction(operand, line_number);
   }
-  
+  std::cout << "Opcode desconocido: " << line << std::endl;
   throw std::runtime_error("Opcode desconocido: " + opcode);
 }
 
