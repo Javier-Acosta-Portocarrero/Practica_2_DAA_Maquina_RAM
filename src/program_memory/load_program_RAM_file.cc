@@ -153,6 +153,16 @@ Operand* LoadProgramRAMFile::ParseOperand(const std::string& text) {
     int index = std::stoi(text.substr(1));
     return new IndirectAddressingOperand(index);
   }
-  int index = std::stoi(text);
-  return new DirectAddressingOperand(index);
+  auto bracket_pos = text.find('[');
+  if (bracket_pos != std::string::npos) {
+    auto closing = text.find(']');
+    if (closing == std::string::npos) throw std::logic_error("Missing closing bracket in operand");
+    int base_index = std::stoi(text.substr(0, bracket_pos));
+    int vector_index = std::stoi(text.substr(bracket_pos + 1, closing - bracket_pos - 1));
+    return new DirectAddressingOperand(base_index, vector_index);
+  }
+  else {
+    int index = std::stoi(text);
+    return new DirectAddressingOperand(index);
+  }
 }

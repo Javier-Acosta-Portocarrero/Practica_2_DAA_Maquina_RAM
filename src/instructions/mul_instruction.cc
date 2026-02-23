@@ -20,5 +20,5 @@
 void MulInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   float multiplier_value = GetOperand() -> GetOperandValue(data, instructions); 
   // Register 0 --> accumulator
-  data.SetRegisterValue(0, data.GetRegisterValue(0) * multiplier_value);
+  data.SetRegisterScalar(0, data.GetRegisterScalar(0) * multiplier_value);
 }

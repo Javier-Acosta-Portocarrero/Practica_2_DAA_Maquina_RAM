@@ -25,6 +25,7 @@ class Operand {
   virtual float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const = 0;
   // int because -1 means constant operand, etc.
   virtual int GetOperandIndex(const DataMemory& data) const = 0;
+  virtual bool OperandIsDirect() const;
 };
 
 #endif

@@ -16,21 +16,28 @@
 #include "../input_tape/input_tape.h"
 #include "../output_tape/output_tape.h"
 #include "../program_memory/program_memory.h"
+#include "../operands/direct_addressing_operand.h"
 #include <stdexcept>
 #include <string>
 
 void StoreInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
-  unsigned resgister_index = GetOperand() -> GetOperandIndex(data);
-  if (resgister_index == 0) {
-    std::string error_message{std::string("STORE instruction can not write to accumulator (R0), line ") +
-                                          std::to_string(GetLine())};
-    throw std::logic_error(error_message);
-  } else if (resgister_index == -1) {
-    std::string error_message{std::string("STORE instruction can not write to a constant operand, line ") +
-                                          std::to_string(GetLine())};
-    throw std::logic_error(error_message);
+  auto* operand = GetOperand();
+  int register_index = operand->GetOperandIndex(data);
+  if (register_index <= 0) {
+    throw std::logic_error("STORE cannot access into R0 or constant, line " + std::to_string(GetLine()));
   }
-  // Register 0 --> accumulator
-  float value_to_store = data.GetRegisterValue(0);
-  data.SetRegisterValue(resgister_index, value_to_store);
+
+  float input_value = data.GetRegisterScalar(0);
+  if (operand->OperandIsDirect()) {
+    auto* direct = dynamic_cast<DirectAddressingOperand*>(operand);
+    if (!direct->GetIndexVectorRegister()) {
+      data.SetRegisterScalar(register_index, input_value);
+    } 
+    else {
+      data.SetRegisterValue(register_index, direct->GetIndexVectorRegister(), input_value);
+    }
+  }
+  else {
+    data.SetRegisterScalar(register_index, input_value);
+  }
 }

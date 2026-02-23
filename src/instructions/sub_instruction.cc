@@ -20,5 +20,5 @@
 void SubInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   float value_to_substract = GetOperand() -> GetOperandValue(data, instructions); 
   // Register 0 --> accumulator
-  data.SetRegisterValue(0, data.GetRegisterValue(0) - value_to_substract);
+  data.SetRegisterScalar(0, data.GetRegisterScalar(0) - value_to_substract);
 }

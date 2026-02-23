@@ -28,5 +28,5 @@ void LoadInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTap
   }
   float value_to_charge = GetOperand() -> GetOperandValue(data, instructions); 
   // Register 0 --> accumulator
-  data.SetRegisterValue(0, value_to_charge);
+  data.SetRegisterScalar(0, value_to_charge);
 }
