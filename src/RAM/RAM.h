@@ -21,7 +21,9 @@
 
 class RAM {
   public:
-  RAM(const std::string&  input_path, const std::string& program_path, const std::string& output_path = "") : input_path_(input_path), program_path_(program_path), output_path_(output_path) {}
+  RAM(const std::string&  input_path, const std::string& program_path, const std::string& output_path = "") : input_path_(input_path), program_path_(program_path), output_path_(output_path) {
+
+  }
   ~RAM() = default;
   void Execute();
 
