@@ -13,19 +13,19 @@
 #ifndef OUTPUT_TAPE_H_
 #define OUTPUT_TAPE_H_
 
-#include <stack>
+#include <queue>
 
 class OutputTape {
  public:
-  OutputTape(std::stack<float> tape) : tape_(tape) {}
+  OutputTape(std::queue<float> tape) : tape_(tape) {}
   OutputTape() = default;
   ~OutputTape() = default;
   
   float GetNextOutput();
   void AddOutput(const float& output);
-  bool EmptyTape() const { return tape_.empty();}
+  inline bool EmptyTape() const { return tape_.empty();}
  private:
-  std::stack<float> tape_;
+  std::queue<float> tape_;
 };
 
 #endif

@@ -20,11 +20,11 @@ class DataMemory {
   DataMemory();
   
   float GetRegisterValue(unsigned register_index) const;
-  int GetProgramCounter() const { return program_counter_register_;}
-  void SetProgramCounter(unsigned program_counter) { program_counter_register_ = program_counter;}
+  inline int GetProgramCounter() const { return program_counter_register_;}
+  inline void SetProgramCounter(unsigned program_counter) { program_counter_register_ = program_counter;}
   void SetRegisterValue(unsigned register_index, float value);
 
-  void IncrementProgramCounter() { ++program_counter_register_;}
+  inline void IncrementProgramCounter() { ++program_counter_register_;}
  private:
   std::vector<float> memory_;
   // Int because we need to know if HALT instruction is executed (PC = -1 --> STOP)

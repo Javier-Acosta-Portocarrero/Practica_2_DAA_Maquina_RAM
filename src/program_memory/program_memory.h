@@ -13,6 +13,7 @@
 #ifndef PROGRAM_MEMORY_H_
 #define PROGRAM_MEMORY_H_
 
+
 #include <map>
 #include <memory>
 #include <fstream>
@@ -28,17 +29,17 @@ class ProgramMemory {
   ProgramMemory() = default;
   ~ProgramMemory() = default;
 
-  size_t GetProgramSize() const {return instrucciones_.size();}
-  Instruction& GetInstruction(unsigned pc) { return *instrucciones_.at(pc);}
-  unsigned GetLineByLabel(const std::string& label) const { return label_table_.at(label); }
+  inline size_t GetProgramSize() const { return instrucciones_.size();}
+  inline Instruction& GetInstruction(unsigned pc) { return *instrucciones_.at(pc);}
+  inline unsigned GetLineByLabel(const std::string& label) const { return label_table_.at(label); }
 
  private:
   friend class LoadProgramRAMFile;
-  void AddInstruction(unsigned line, std::unique_ptr<Instruction> instruction) {instrucciones_.emplace(line, std::move(instruction));}
-  void AddLabel(unsigned line, const std::string& label) {label_table_.emplace(line, label);}
-  const std::map<std::string, unsigned>& GetTableLabel() const { return label_table_; }
+  inline void AddInstruction(unsigned line, Instruction* instruction) { instrucciones_.emplace(line, instruction);}
+  inline void AddLabel(unsigned line, const std::string& label) { label_table_.emplace(label, line);}
+  inline const std::map<std::string, unsigned>& GetTableLabel() const { return label_table_; }
 
-  std::map<unsigned, std::unique_ptr<Instruction>> instrucciones_;
+  std::map<unsigned, Instruction*> instrucciones_;
   std::map<std::string, unsigned> label_table_;
 };
 

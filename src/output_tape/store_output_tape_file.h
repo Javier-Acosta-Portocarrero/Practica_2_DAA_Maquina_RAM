@@ -24,8 +24,8 @@ class StoreOutputTapeFile : public StoreOutputTape {
 
   bool StoreTape() const override;
   
-  void SetFilePath(const std::string& file_path) { file_path_ = file_path;}
-  void SetOutputTape(const OutputTape& tape) { StoreOutputTape::SetOutputTape(tape);}
+  inline void SetFilePath(const std::string& file_path) { file_path_ = file_path;}
+  inline void SetOutputTape(const OutputTape& tape) { StoreOutputTape::SetOutputTape(tape);}
  private:
   std::string file_path_{""};
 };

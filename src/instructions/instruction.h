@@ -13,18 +13,16 @@
 #ifndef INSTRUCTION_H_
 #define INSTRUCTION_H_
 
-#include "../operands/operand.h"
-#include "../data_memory/data_memory.h"
-#include "../input_tape/input_tape.h"
-#include "../output_tape/output_tape.h"
-#include "../program_memory/program_memory.h"
-
+class Operand;
+class DataMemory;
+class InputTape;
+class OutputTape;
 class ProgramMemory;
 
 class Instruction {
  public:
   Instruction(Operand* operand, unsigned line) : operand_{operand}, line_{line} {}
-  virtual ~Instruction() { delete operand_;}
+  virtual ~Instruction();
   
   // Must throw an exception if the instruction is illegal
   virtual void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) = 0;

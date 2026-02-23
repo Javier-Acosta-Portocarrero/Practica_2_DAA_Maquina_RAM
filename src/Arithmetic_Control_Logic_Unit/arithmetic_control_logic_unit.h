@@ -15,15 +15,16 @@
 
 #include "../program_memory/program_memory.h"
 #include "../instructions/instruction.h"
+#include "../data_memory/data_memory.h"
 
 class ArithmeticControlLogicUnit {
-  public:
+ public:
   ArithmeticControlLogicUnit() = default;
   ~ArithmeticControlLogicUnit() = default;
 
-  unsigned GetNumberInstructions() const {return numero_instrucciones_ejecutadas_;}
+  inline unsigned GetNumberInstructions() const {return numero_instrucciones_ejecutadas_;}
   void ExecuteInstructions(ProgramMemory& program, DataMemory& data_memory, InputTape& input_tape, OutputTape& output_tape);
-  private:
+ private:
   unsigned numero_instrucciones_ejecutadas_ {0};
 };
 

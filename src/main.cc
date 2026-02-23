@@ -23,12 +23,12 @@ int main(int argc, char* argv[]) {
     std::string program_path = argv[1];
     std::string input_path   = argv[2];
     std::string output_path;
-    bool save_output = false;
 
     if (argc == 4) {
       output_path = argv[3];
     }
     LoadInputTapeFile input_tape_loader(input_path);
+    input_tape_loader.LoadTape();
     LoadProgramRAMFile program_loader(program_path);
     auto program_loaded_ = program_loader.Load();
     InputTape input = input_tape_loader.GetInputTape();
@@ -37,11 +37,9 @@ int main(int argc, char* argv[]) {
 
     machine.Execute();
     std::cout << "Ejecución completada correctamente.\n";
-    
     // If an output path is provided, save the output tape to the file.
     if (argc == 4) {
       StoreOutputTapeFile output_saver(machine.GetOutputTape(), output_path);
-      output_saver.SetOutputTape(machine.GetOutputTape());
       if (output_saver.StoreTape()) {
         std::cout << "Salida guardada en " << output_path << "\n";
       } else {

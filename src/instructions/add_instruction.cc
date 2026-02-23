@@ -11,6 +11,11 @@
 // Contiene la definicion de la clase AddInstruction.
 
 #include "add_instruction.h"
+#include "../operands/operand.h"
+#include "../data_memory/data_memory.h"
+#include "../input_tape/input_tape.h"
+#include "../output_tape/output_tape.h"
+#include "../program_memory/program_memory.h"
 
 void AddInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   float value_to_add = GetOperand() -> GetOperandValue(data, instructions); 

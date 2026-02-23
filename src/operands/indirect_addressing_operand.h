@@ -21,7 +21,7 @@ class IndirectAddressingOperand : public Operand {
   ~IndirectAddressingOperand() = default;
 
   float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override;
-  int GetOperandIndex(const DataMemory& data) const override { return data.GetRegisterValue(indirect_register_index_);}
+  inline int GetOperandIndex(const DataMemory& data) const override { return data.GetRegisterValue(indirect_register_index_);}
  private:
   unsigned indirect_register_index_{0};
 };

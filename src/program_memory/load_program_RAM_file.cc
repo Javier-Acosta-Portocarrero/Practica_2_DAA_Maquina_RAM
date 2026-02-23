@@ -28,6 +28,7 @@
 #include "../operands/indirect_addressing_operand.h"
 #include "../operands/label_operand.h"
 
+#include <iostream>
 ProgramMemory LoadProgramRAMFile::Load() {
   std::ifstream program_input_stream{program_path_};
   if (!program_input_stream.is_open()) {
@@ -41,14 +42,18 @@ ProgramMemory LoadProgramRAMFile::Load() {
   while (std::getline(program_input_stream, line)) {
     if (line.empty()) continue;
     if (line[0] == '#') continue;
-
+    // Make it uppercase
+    for (char& character : line) {
+      character = std::toupper(character);
+    }
     size_t first = line.find_first_not_of(" \t");
     if (first != std::string::npos) line.erase(0, first);
 
     try {
-      auto inst = ParseInstruction(line, linea, program);
+      Instruction* inst = ParseInstruction(line, linea, program);
       if (inst) {
-        program.AddInstruction(linea, std::move(inst));
+        program.AddInstruction(linea, inst);
+        std::cout << "Instruccion en linea " << linea << ": " << line << std::endl;
         ++linea;
       }
     } catch (const std::exception& e) {
@@ -61,7 +66,7 @@ ProgramMemory LoadProgramRAMFile::Load() {
 }
 
 
-std::unique_ptr<Instruction> LoadProgramRAMFile::ParseInstruction(const std::string& line, unsigned line_number, ProgramMemory& program) {
+Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsigned line_number, ProgramMemory& program) {
   std::string currentLine = line;
   size_t colon_pos = currentLine.find(':');
   if (colon_pos != std::string::npos) {
@@ -89,63 +94,64 @@ std::unique_ptr<Instruction> LoadProgramRAMFile::ParseInstruction(const std::str
   std::string operand_text;
   iss >> operand_text;
 
-  std::unique_ptr<Operand> operand = ParseOperand(operand_text);
-
-  if (opcode == "LOAD") {
-    return std::make_unique<LoadInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "STORE") {
-    return std::make_unique<StoreInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "ADD") {
-    return std::make_unique<AddInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "SUB") {
-    return std::make_unique<SubInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "MUL") {
-    return std::make_unique<MulInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "DIV") {
-    return std::make_unique<DivInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "READ") {
-    return std::make_unique<ReadInstruction>(std::move(operand), line_number);
-  }
-  if (opcode == "WRITE") {
-    return std::make_unique<WriteInstruction>(std::move(operand), line_number);
-  }
   if (opcode == "HALT") {
     if (!operand_text.empty()) {
       throw std::runtime_error("HALT no admite operando");
     }
-    return std::make_unique<HaltInstruction>(nullptr, line_number);
+    return new HaltInstruction(nullptr, line_number);
   }
-  std::unique_ptr<Operand> jump_operand = std::make_unique<LabelOperand>(operand_text);
+
+  Operand* jump_operand = new LabelOperand(operand_text);
   if (opcode == "JUMP") {
-    return std::make_unique<JumpInstruction>(std::move(jump_operand), line_number);
+    return new JumpInstruction(jump_operand, line_number);
   }
   if (opcode == "JZERO") {
-    return std::make_unique<JzeroInstruction>(std::move(jump_operand), line_number);
+    return new JzeroInstruction(jump_operand, line_number);
   }
   if (opcode == "JGTZ") {
-    return std::make_unique<JgtzInstruction>(std::move(jump_operand), line_number);
+    return new JgtzInstruction(jump_operand, line_number);
+  }
+
+  Operand* operand = ParseOperand(operand_text);
+  if (opcode == "LOAD") {
+    return new LoadInstruction(operand, line_number);
+  }
+  if (opcode == "STORE") {
+    return new StoreInstruction(operand, line_number);
+  }
+  if (opcode == "ADD") {
+    return new AddInstruction(operand, line_number);
+  }
+  if (opcode == "SUB") {
+    return new SubInstruction(operand, line_number);
+  }
+  if (opcode == "MUL") {
+    return new MulInstruction(operand, line_number);
+  }
+  if (opcode == "DIV") {
+    return new DivInstruction(operand, line_number);
+  }
+  if (opcode == "READ") {
+    return new ReadInstruction(operand, line_number);
+  }
+  if (opcode == "WRITE") {
+    return new WriteInstruction(operand, line_number);
   }
   
   throw std::runtime_error("Opcode desconocido: " + opcode);
 }
 
-std::unique_ptr<Operand> LoadProgramRAMFile::ParseOperand(const std::string& text) {
+Operand* LoadProgramRAMFile::ParseOperand(const std::string& text) {
   if (text.empty()) return nullptr;
   
   if (text[0] == '=') {
     float value = std::stof(text.substr(1));
-    return std::make_unique<ConstantOperand>(value);
+    return new ConstantOperand(value);
   }
   if (text[0] == '*') {
     int index = std::stoi(text.substr(1));
-    return std::make_unique<IndirectAddressingOperand>(index);
+    return new IndirectAddressingOperand(index);
   }
   int index = std::stoi(text);
-  return std::make_unique<DirectAddressingOperand>(index);
+  return new DirectAddressingOperand(index);
 }

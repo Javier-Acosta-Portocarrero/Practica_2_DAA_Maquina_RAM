@@ -14,9 +14,9 @@
 
 void ArithmeticControlLogicUnit::ExecuteInstructions(ProgramMemory& program, DataMemory& data_memory, InputTape& input_tape, OutputTape& output_tape) {
   numero_instrucciones_ejecutadas_ = 0;
-  data_memory.SetProgramCounter(0);
+  data_memory.SetProgramCounter(1);
 
-  while (data_memory.GetProgramCounter() < program.GetProgramSize() && data_memory.GetProgramCounter() != -1) {
+  while (data_memory.GetProgramCounter() <= program.GetProgramSize() && data_memory.GetProgramCounter() != -1) {
     unsigned pc = data_memory.GetProgramCounter();
     Instruction& instruction = program.GetInstruction(pc);
     // Guardamos el PC antes de ejecutar

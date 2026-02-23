@@ -13,18 +13,18 @@
 #ifndef RAM_H_
 #define RAM_H_
 
-#include "../program_memory/load_program_RAM_file.cc"
-#include "../output_tape/store_output_tape_file.cc"
-#include "../input_tape/load_input_tape_file.cc"
-#include "../data_memory/data_memory.cc"
-#include "../Arithmetic_Control_Logic_Unit/arithmetic_control_logic_unit.cc"
+#include "../program_memory/load_program_RAM_file.h"
+#include "../output_tape/store_output_tape_file.h"
+#include "../input_tape/load_input_tape_file.h"
+#include "../data_memory/data_memory.h"
+#include "../Arithmetic_Control_Logic_Unit/arithmetic_control_logic_unit.h"
 
 class RAM {
  public:
   RAM(ProgramMemory program, InputTape input_tape) : program_memory_(program), input_tape_(input_tape) {};
   ~RAM() = default;
 
-  OutputTape GetOutputTape() const { return output_tape_;};
+  inline OutputTape GetOutputTape() const { return output_tape_;};
 
   void Execute();
 

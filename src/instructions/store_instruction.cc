@@ -11,11 +11,16 @@
 // Contiene la definicion de la clase StoreInstruction.
 
 #include "store_instruction.h"
+#include "../operands/operand.h"
+#include "../data_memory/data_memory.h"
+#include "../input_tape/input_tape.h"
+#include "../output_tape/output_tape.h"
+#include "../program_memory/program_memory.h"
 #include <stdexcept>
 #include <string>
 
 void StoreInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
-  unsigned resgister_index = GetOperand() -> GetOperandIndex(data, instructions);
+  unsigned resgister_index = GetOperand() -> GetOperandIndex(data);
   if (resgister_index == 0) {
     std::string error_message{std::string("STORE instruction can not write to accumulator (R0), line ") +
                                           std::to_string(GetLine())};

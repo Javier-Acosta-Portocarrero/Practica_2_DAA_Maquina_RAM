@@ -22,8 +22,8 @@ class StoreOutputTape {
 
   virtual bool StoreTape() const = 0;
 
-  void SetOutputTape(const OutputTape& tape) { tape_ = tape;}
-  OutputTape GetOutputTape() const { return tape_;}
+  inline void SetOutputTape(const OutputTape& tape) { tape_ = tape;}
+  inline OutputTape GetOutputTape() const { return tape_;}
  private:
   OutputTape tape_;
 };

@@ -13,7 +13,7 @@
 #include "output_tape.h"
 
 float OutputTape::GetNextOutput() {
-  const float output = tape_.top();
+  const float output = tape_.front();
   tape_.pop();
   return output;
 }

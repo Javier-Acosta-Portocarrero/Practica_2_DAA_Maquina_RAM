@@ -11,6 +11,11 @@
 // Contiene la definicion de la clase ReadInstruction.
 
 #include "read_instruction.h"
+#include "../operands/operand.h"
+#include "../data_memory/data_memory.h"
+#include "../input_tape/input_tape.h"
+#include "../output_tape/output_tape.h"
+#include "../program_memory/program_memory.h"
 #include <stdexcept>
 #include <sstream>
 

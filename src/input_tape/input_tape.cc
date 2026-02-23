@@ -15,7 +15,7 @@
 
 float InputTape::GetNextInput() {
   if (tape_.empty()) {
-    throw std::out_of_range("Input tape is empty");
+    return 0.0;
   }
   const float input = tape_.front();
   tape_.pop();

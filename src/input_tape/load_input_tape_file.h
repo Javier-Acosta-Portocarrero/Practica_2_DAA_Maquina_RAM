@@ -24,7 +24,7 @@ class LoadInputTapeFile : public LoadInputTape {
 
   bool LoadTape() override;
 
-  void SetFilePath(const std::string& file_path) { file_path_ = file_path;};
+  inline void SetFilePath(const std::string& file_path) { file_path_ = file_path;};
  private:
   std::string file_path_{""};
 };
