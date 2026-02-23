@@ -24,6 +24,8 @@ class LabelOperand : public Operand {
   float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override;
   // -1 means that this operand is not an index, but a label.
   inline int GetOperandIndex(const DataMemory& data) const override { return -1;}
+
+  inline bool OperandIsDirect() const override { return false;}
  private:
   std::string label_;  
 };

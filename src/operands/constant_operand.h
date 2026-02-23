@@ -22,6 +22,8 @@ class ConstantOperand : public Operand {
 
   inline float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override { return value_;}
   inline int GetOperandIndex(const DataMemory& data) const override { return -1;}
+
+  inline bool OperandIsDirect() const override { return false;}
  private:
   float value_{0.0};
 };

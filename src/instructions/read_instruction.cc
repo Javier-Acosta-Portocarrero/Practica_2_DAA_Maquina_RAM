@@ -30,10 +30,9 @@ void ReadInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTap
   float input_value = input_tape.GetNextInput();
   if (operand->OperandIsDirect()) {
     auto* direct = dynamic_cast<DirectAddressingOperand*>(operand);
-    if (!direct->GetIndexVectorRegister()) {
+    if (!(direct->GetIndexVectorRegister())) {
       data.SetRegisterScalar(register_index, input_value);
-    } 
-    else {
+    } else {
       data.SetRegisterValue(register_index, direct->GetIndexVectorRegister(), input_value);
     }
   }

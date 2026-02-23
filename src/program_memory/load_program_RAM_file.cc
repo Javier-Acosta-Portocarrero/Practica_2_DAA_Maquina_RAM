@@ -28,7 +28,6 @@
 #include "../operands/indirect_addressing_operand.h"
 #include "../operands/label_operand.h"
 
-#include <iostream>
 ProgramMemory LoadProgramRAMFile::Load() {
   std::ifstream program_input_stream{program_path_};
   if (!program_input_stream.is_open()) {
@@ -53,7 +52,6 @@ ProgramMemory LoadProgramRAMFile::Load() {
       Instruction* inst = ParseInstruction(line, linea, program);
       if (inst) {
         program.AddInstruction(linea, inst);
-        std::cout << "Instruccion en linea " << linea << ": " << line << std::endl;
         ++linea;
       }
     } catch (const std::exception& e) {
@@ -138,7 +136,6 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
   if (opcode == "WRITE") {
     return new WriteInstruction(operand, line_number);
   }
-  std::cout << "Opcode desconocido: " << line << std::endl;
   throw std::runtime_error("Opcode desconocido: " + opcode);
 }
 

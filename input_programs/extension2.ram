@@ -1,0 +1,87 @@
+# LECTURA DEL VECTOR
+
+        READ 2
+        LOAD =1
+        STORE 3
+
+lee_vec:
+        LOAD 3
+        SUB 2
+        JGTZ ordenar
+
+        READ R1[3]
+        LOAD 3
+        ADD =1
+        STORE 3
+        JUMP lee_vec
+
+# BUBBLE SORT
+ordenar:
+        LOAD =1
+        STORE 3             # i = 1
+
+for_i:
+        LOAD 3
+        ADD =1
+        SUB 2
+        JGTZ salida
+
+        LOAD 2
+        STORE 4             # j = n
+
+for_j:
+        LOAD 4
+        SUB 3
+        JGTZ comparar
+        JUMP inc_i
+
+comparar:
+        LOAD 4
+        SUB =1
+        STORE 6             # R6 = j-1
+
+        LOAD R1[6]
+        SUB R1[4]
+        JGTZ swap
+        JUMP dec_j
+
+swap:
+        LOAD R1[6]
+        STORE 5
+
+        LOAD R1[4]
+        STORE R1[6]
+
+        LOAD 5
+        STORE R1[4]
+
+dec_j:
+        LOAD 4
+        SUB =1
+        STORE 4
+        JUMP for_j
+
+inc_i:
+        LOAD 3
+        ADD =1
+        STORE 3
+        JUMP for_i
+
+# SALIDA
+salida:
+        LOAD =1
+        STORE 3
+
+write:
+        LOAD 3
+        SUB 2
+        JGTZ halt
+
+        WRITE R1[3]
+        LOAD 3
+        ADD =1
+        STORE 3
+        JUMP write
+
+halt:
+        HALT

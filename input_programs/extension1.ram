@@ -1,0 +1,88 @@
+# LECTURA DEL VECTOR
+
+        READ 2              # n
+        LOAD =1
+        STORE 3             # i = 1
+
+lee_vec:
+        LOAD 3
+        SUB 2
+        JGTZ ordenar
+
+        READ 1[3]
+        LOAD 3
+        ADD =1
+        STORE 3
+        JUMP lee_vec
+
+# INSERTION SORT
+ordenar:
+        LOAD =2
+        STORE 4             # j = 2
+
+for_j:
+        LOAD 4
+        SUB 2
+        JGTZ salida
+
+        LOAD 1[4]
+        STORE 5             # key = A[j]
+
+        LOAD 4
+        SUB =1
+        STORE 3             # i = j - 1
+
+while:
+        LOAD 3
+        JZERO insertar
+
+        LOAD 1[3]
+        SUB 5
+        JGTZ desplazar
+        JUMP insertar
+
+desplazar:
+        # R6 = i + 1
+        LOAD 3
+        ADD =1
+        STORE 6
+
+        LOAD 1[3]
+        STORE 1[6]
+
+        LOAD 3
+        SUB =1
+        STORE 3
+        JUMP while
+
+insertar:
+        LOAD 3
+        ADD =1
+        STORE 6
+
+        LOAD 5
+        STORE 1[6]
+
+        LOAD 4
+        ADD =1
+        STORE 4
+        JUMP for_j
+
+# SALIDA
+salida:
+        LOAD =1
+        STORE 3
+
+write:
+        LOAD 3
+        SUB 2
+        JGTZ halt
+
+        WRITE 1[3]
+        LOAD 3
+        ADD =1
+        STORE 3
+        JUMP write
+
+halt:
+        HALT

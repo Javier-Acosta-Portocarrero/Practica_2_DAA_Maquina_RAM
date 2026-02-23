@@ -18,14 +18,16 @@
 
 class DirectAddressingOperand : public Operand {
  public:
-  explicit DirectAddressingOperand(unsigned register_index) : register_index_{register_index} {}
-  DirectAddressingOperand(unsigned register_index, unsigned index_vector_register) : register_index_{register_index}, index_vector_register_{index_vector_register} {}
+  DirectAddressingOperand(unsigned register_index) : register_index_{register_index} {}
+  DirectAddressingOperand(unsigned register_index, unsigned index_vector_register) : 
+                          register_index_{register_index}, index_vector_register_{index_vector_register} {}
   ~DirectAddressingOperand() = default;
 
   float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override;
   inline int GetOperandIndex(const DataMemory& data) const override { return register_index_;}
   inline int GetIndexVectorRegister() const {return index_vector_register_;}
-  inline bool OperandIsDirect() const override {return true;}
+
+  inline bool OperandIsDirect() const override { return true;}
  private:
  unsigned register_index_{0}, index_vector_register_{0};
 

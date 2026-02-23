@@ -22,7 +22,8 @@ class IndirectAddressingOperand : public Operand {
 
   float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override;
   inline int GetOperandIndex(const DataMemory& data) const override { return data.GetRegisterScalar(indirect_register_index_);}
-  inline bool OperandIsDirect() const override {return false;}
+
+  inline bool OperandIsDirect() const override { return false;}
  private:
   unsigned indirect_register_index_{0};
 };
