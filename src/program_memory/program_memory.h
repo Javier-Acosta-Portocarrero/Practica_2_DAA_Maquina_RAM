@@ -15,6 +15,10 @@
 
 #include <map>
 #include <memory>
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
+
 #include "../instructions/instruction.h"
 #include "../instructions/add_instruction.cc"
 #include "../instructions/div_instruction.cc"
@@ -32,24 +36,25 @@
 #include "../operands/direct_addressing_operand.cc"
 #include "../operands/indirect_addressing_operand.cc"
 
+class LoadProgramRAMFile;
 class ProgramMemory {
-  public:
-  ProgramMemory(const std::string&  file_path) : program_path_{file_path} {}
-
+public:
+  ProgramMemory() = default;
   ~ProgramMemory() = default;
 
-  bool LoadProgram();
-  const std::map<unsigned, std::unique_ptr<Instruction>>& GetProgram() const { return instrucciones_;}
-  size_t GetProgramSize() {return instrucciones_.size();}
-  Instruction& GetInstruction(unsigned pc) {return *instrucciones_.at(pc);}
+  size_t GetProgramSize() const {return instrucciones_.size();}
+
+  Instruction& GetInstruction(unsigned pc) { return *instrucciones_.at(pc);}
+
+  const std::string& GetLabelLine(unsigned pc) const { return label_table_.at(pc); }
+
   private:
-  //Ordena por su linea de entrada contiendo su respectiva instrucción
-  //std::map<int, std::string> instrucciones_;
+  friend class LoadProgramRAMFile;
+  void AddInstruction(unsigned line, std::unique_ptr<Instruction> instruction) {instrucciones_.emplace(line, std::move(instruction));}
+  void AddLabel(unsigned line, const std::string& label) {label_table_.emplace(line, label);}
   std::map<unsigned, std::unique_ptr<Instruction>> instrucciones_;
-  std::string program_path_;
-  std::unique_ptr<Instruction> ParseInstruction(const std::string& line, unsigned line_number);
-  std::unique_ptr<Operand> ParseOperand(const std::string& text);
-  std::map<std::string, int> label_table_;
+  std::map<unsigned, std::string> label_table_;
+  const std::map<unsigned, std::string>& GetTableLabel() const { return label_table_; }
 };
 
 #endif

@@ -7,20 +7,18 @@
 // Autor: Javier Acosta Portocarrero
 // Autor: Gabriel Gallardo Noda
 // Fecha: 20/02/2026
-// Archivo program_memory.cc: fichero de implementación.
-// Contiene la implementación de la ProgramMemory.
+// Archivo load_program_RAM_file.cc: fichero de implementación.
+// Contiene la implementación de la load_program_RAM.
 
-#include "program_memory.h"
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
+#include "load_program_RAM_file.h"
 
-bool ProgramMemory::LoadProgram() {
+std::unique_ptr<const ProgramMemory> LoadProgramRAMFile::Load() {
   std::ifstream program_input_stream{program_path_};
   if (!program_input_stream.is_open()) {
-    return false;
+    throw std::runtime_error("No se pudo abrir el fichero");
   }
 
+  auto program = std::make_unique<ProgramMemory>();
   std::string line;
   unsigned linea{1};
 
@@ -31,9 +29,9 @@ bool ProgramMemory::LoadProgram() {
     size_t first = line.find_first_not_of(" \t");
     if (first != std::string::npos) line.erase(0, first);
     try {
-      auto inst = ParseInstruction(line, linea);
+      auto inst = ParseInstruction(line, linea, *program);
       if (inst) {
-        instrucciones_.emplace(linea, std::move(inst));
+        program->AddInstruction(linea, std::move(inst));
         ++linea;
       }
 
@@ -43,17 +41,24 @@ bool ProgramMemory::LoadProgram() {
     }
   }
 
-  return true;
+  return program;
 }
 
-std::unique_ptr<Instruction> ProgramMemory::ParseInstruction(const std::string& line, unsigned line_number) {
+std::unique_ptr<Instruction> LoadProgramRAMFile::ParseInstruction(const std::string& line, unsigned line_number, ProgramMemory& program) {
   std::string working = line;
   size_t colon_pos = working.find(':');
   if (colon_pos != std::string::npos) {
     std::string label = working.substr(0, colon_pos);
-    if (label_table_.count(label)) 
-    throw std::runtime_error("Etiqueta duplicada: " + label);
-    label_table_[label] = line_number;
+    int contador = 0;
+    for (const auto& par : program.GetTableLabel()) {
+      if (par.second == label) {
+        contador++;
+        if (contador > 1) {
+          throw std::runtime_error("Etiqueta duplicada: " + label);
+        }
+      }
+    } 
+    program.AddLabel(line_number, label);
     working.erase(0, colon_pos + 1);
 
     size_t first = working.find_first_not_of(" \t");
@@ -98,7 +103,7 @@ std::unique_ptr<Instruction> ProgramMemory::ParseInstruction(const std::string& 
   throw std::runtime_error("Opcode desconocido: " + opcode);
 }
 
-std::unique_ptr<Operand> ProgramMemory::ParseOperand(const std::string& text) {
+std::unique_ptr<Operand> LoadProgramRAMFile::ParseOperand(const std::string& text) {
   if (text.empty()) return nullptr;
   
   if (text[0] == '=') {

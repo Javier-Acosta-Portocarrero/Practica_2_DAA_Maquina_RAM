@@ -18,14 +18,11 @@
 
 class ArithmeticControlLogicUnit {
   public:
-  //ArithmeticControlLogicUnit() : program_{program} {}
-  ArithmeticControlLogicUnit() {
-
-  }
+  ArithmeticControlLogicUnit() = default;
   ~ArithmeticControlLogicUnit() = default;
 
   unsigned GetNumberInstructions() const {return numero_instrucciones_ejecutadas_;}
-  void ExecuteInstructions(ProgramMemory& program);
+  void ExecuteInstructions(ProgramMemory& program, DataMemory& data_memory, InputTape& input_tape, OutputTape& output_tape);
   private:
   unsigned numero_instrucciones_ejecutadas_ {0};
 };

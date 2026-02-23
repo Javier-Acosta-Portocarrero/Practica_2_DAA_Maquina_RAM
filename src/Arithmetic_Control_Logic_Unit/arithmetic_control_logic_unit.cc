@@ -12,14 +12,11 @@
 
 #include "arithmetic_control_logic_unit.h"
 
-void ArithmeticControlLogicUnit::ExecuteInstructions(ProgramMemory& program) {
-  DataMemory data_memory;
-  InputTape input_tape;
-  OutputTape output_tape;
+void ArithmeticControlLogicUnit::ExecuteInstructions(ProgramMemory& program, DataMemory& data_memory, InputTape& input_tape, OutputTape& output_tape) {
   numero_instrucciones_ejecutadas_ = 0;
   data_memory.SetProgramCounter(0);
 
-  while (data_memory.GetProgramCounter() < program.GetProgramSize()) {
+  while (data_memory.GetProgramCounter() < program.GetProgramSize() && data_memory.GetProgramCounter() != -1) {
     unsigned pc = data_memory.GetProgramCounter();
     Instruction& instruction = program.GetInstruction(pc);
     // Guardamos el PC antes de ejecutar
