@@ -12,8 +12,8 @@
 
 #include "jump_instruction.h"
 
-void JumpInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+void JumpInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   // We allow registers to store addresses to jump.
-  int address = static_cast<int>(GetOperand() -> GetOperandValue(data)); 
+  int address = static_cast<int>(GetOperand() -> GetOperandValue(data, instructions)); 
   data.SetProgramCounter(address);
 }

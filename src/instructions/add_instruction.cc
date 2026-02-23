@@ -12,8 +12,8 @@
 
 #include "add_instruction.h"
 
-void AddInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
-  float value_to_add = GetOperand() -> GetOperandValue(data); 
+void AddInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
+  float value_to_add = GetOperand() -> GetOperandValue(data, instructions); 
   // Register 0 --> accumulator
   data.SetRegisterValue(0, data.GetRegisterValue(0) + value_to_add);
 }

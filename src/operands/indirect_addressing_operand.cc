@@ -12,7 +12,7 @@
 
 #include "indirect_addressing_operand.h"
 
-float IndirectAddressingOperand::GetOperandValue(const DataMemory& data) const {
+float IndirectAddressingOperand::GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const {
   // If one of the registers is not valid, the method GetRegisterValue will throw an exception.
   float value = data.GetRegisterValue(data.GetRegisterValue(indirect_register_index_));
   return value;

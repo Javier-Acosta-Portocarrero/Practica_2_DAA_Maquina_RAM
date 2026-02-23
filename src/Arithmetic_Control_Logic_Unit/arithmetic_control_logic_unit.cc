@@ -21,7 +21,7 @@ void ArithmeticControlLogicUnit::ExecuteInstructions(ProgramMemory& program, Dat
     Instruction& instruction = program.GetInstruction(pc);
     // Guardamos el PC antes de ejecutar
     unsigned old_pc = pc;
-    instruction.Execute(data_memory, input_tape, output_tape);
+    instruction.Execute(data_memory, input_tape, output_tape, program);
     ++numero_instrucciones_ejecutadas_;
     // Si la instrucción no cambió el PC → ejecución secuencial
     if (data_memory.GetProgramCounter() == old_pc) {

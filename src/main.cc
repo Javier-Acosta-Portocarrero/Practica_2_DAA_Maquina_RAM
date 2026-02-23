@@ -28,11 +28,27 @@ int main(int argc, char* argv[]) {
     if (argc == 4) {
       output_path = argv[3];
     }
+    LoadInputTapeFile input_tape_loader(input_path);
+    LoadProgramRAMFile program_loader(program_path);
+    auto program_loaded_ = program_loader.Load();
+    InputTape input = input_tape_loader.GetInputTape();
 
-    RAM machine(input_path, program_path, output_path);
+    RAM machine(program_loaded_, input);
 
-    std::cout << "Ejecución completada correctamente.\n";
     machine.Execute();
+    std::cout << "Ejecución completada correctamente.\n";
+    
+    // If an output path is provided, save the output tape to the file.
+    if (argc == 4) {
+      StoreOutputTapeFile output_saver(machine.GetOutputTape(), output_path);
+      output_saver.SetOutputTape(machine.GetOutputTape());
+      if (output_saver.StoreTape()) {
+        std::cout << "Salida guardada en " << output_path << "\n";
+      } else {
+        std::cerr << "Error al guardar la salida en " << output_path << "\n";
+        return 1;
+      }
+    }
 
   } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << "\n";

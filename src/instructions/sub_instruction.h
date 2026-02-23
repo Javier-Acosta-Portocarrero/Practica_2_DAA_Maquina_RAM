@@ -20,7 +20,7 @@ class SubInstruction : public Instruction {
   SubInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~SubInstruction() = default;
   
-  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) override;
+  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) override;
 };
 
 #endif

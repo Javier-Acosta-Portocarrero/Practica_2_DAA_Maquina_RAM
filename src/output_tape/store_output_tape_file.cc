@@ -18,7 +18,7 @@ bool StoreOutputTapeFile::StoreTape() const {
   if (!file_output_stream.is_open()) {
     return false;
   }
-  OutputTape aux_tape = tape_;
+  OutputTape aux_tape = GetOutputTape();
   while (!aux_tape.EmptyTape()) {
     float output = aux_tape.GetNextOutput();
     file_output_stream << output << std::endl;

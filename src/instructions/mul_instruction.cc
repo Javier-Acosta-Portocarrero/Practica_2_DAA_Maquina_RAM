@@ -12,8 +12,8 @@
 
 #include "mul_instruction.h"
 
-void MulInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
-  float multiplier_value = GetOperand() -> GetOperandValue(data); 
+void MulInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
+  float multiplier_value = GetOperand() -> GetOperandValue(data, instructions); 
   // Register 0 --> accumulator
   data.SetRegisterValue(0, data.GetRegisterValue(0) * multiplier_value);
 }

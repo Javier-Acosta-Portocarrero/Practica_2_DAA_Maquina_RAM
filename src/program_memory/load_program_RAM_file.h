@@ -21,7 +21,7 @@ class LoadProgramRAMFile : public LoadProgramRAM {
   LoadProgramRAMFile() = default;
   ~LoadProgramRAMFile() = default;
   void SetProgram(const std::string& program_path) {program_path_ = program_path;}
-  std::unique_ptr<const ProgramMemory> Load() override;
+  ProgramMemory Load() override;
   private:
   std::string program_path_;
   std::unique_ptr<Instruction> ParseInstruction(const std::string& line, unsigned line_number, ProgramMemory& program);

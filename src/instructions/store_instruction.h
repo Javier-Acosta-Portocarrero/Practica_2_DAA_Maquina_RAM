@@ -20,7 +20,7 @@ class StoreInstruction : public Instruction {
   StoreInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~StoreInstruction() = default;
   
-  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) override;
+  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) override;
 };
 
 #endif

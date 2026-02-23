@@ -13,20 +13,6 @@
 #include "RAM.h"
 
 void RAM::Execute() {
-    LoadInputTapeFile input_tape (input_path_);
-    if (input_tape.LoadTape()) {
-        LoadProgramRAMFile program (program_path_);
-        auto program_loaded_ = program.Load();
-        DataMemory data_memory;
-        OutputTape output_tape;
-        InputTape input;
-        ArithmeticControlLogicUnit ACLU;
-        ACLU.ExecuteInstructions(const_cast<ProgramMemory&>(*program_loaded_), data_memory, input, output_tape);
-        StoreOutputTapeFile output_saver(output_tape, output_path_);
-        output_saver.StoreTape();
-    }
-    else { 
-        throw std::runtime_error("Cinta de entrada no cargada");
-    }
+  ACLU.ExecuteInstructions(program_memory_, data_memory_, input_tape_, output_tape_);
 }
 

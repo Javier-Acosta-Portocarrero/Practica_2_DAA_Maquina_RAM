@@ -16,17 +16,17 @@
 #include "store_output_tape.h"
 #include <string>
 
-class StoreOutputTapeFile : StoreOutputTape {
+class StoreOutputTapeFile : public StoreOutputTape {
  public:
-  StoreOutputTapeFile(const OutputTape& tape, const std::string& file_path = "") : tape_{tape}, file_path_{file_path} {}
+  StoreOutputTapeFile(const OutputTape& tape, const std::string& file_path = "") : StoreOutputTape(tape), file_path_{file_path} {}
   StoreOutputTapeFile() = default;
   ~StoreOutputTapeFile() = default;
 
   bool StoreTape() const override;
   
   void SetFilePath(const std::string& file_path) { file_path_ = file_path;}
+  void SetOutputTape(const OutputTape& tape) { StoreOutputTape::SetOutputTape(tape);}
  private:
-  OutputTape tape_;
   std::string file_path_{""};
 };
 

@@ -20,15 +20,20 @@
 #include "../Arithmetic_Control_Logic_Unit/arithmetic_control_logic_unit.cc"
 
 class RAM {
-  public:
-  RAM(const std::string&  input_path, const std::string& program_path, const std::string& output_path = "") : input_path_(input_path), program_path_(program_path), output_path_(output_path) {
-
-  }
+ public:
+  RAM(ProgramMemory program, InputTape input_tape) : program_memory_(program), input_tape_(input_tape) {};
   ~RAM() = default;
+
+  OutputTape GetOutputTape() const { return output_tape_;};
+
   void Execute();
 
-  private:
-  std::string input_path_, program_path_, output_path_;
+ private:
+  ArithmeticControlLogicUnit ACLU;
+  ProgramMemory program_memory_;
+  DataMemory data_memory_;
+  InputTape input_tape_;
+  OutputTape output_tape_;
 };
 
 #endif

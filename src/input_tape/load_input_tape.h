@@ -22,6 +22,7 @@ class LoadInputTape {
   virtual bool LoadTape() = 0;
   
   InputTape GetInputTape() { return tape_;};
+  void SetInputTape(const InputTape& tape) { tape_ = tape;};
  private:
   InputTape tape_;
 };

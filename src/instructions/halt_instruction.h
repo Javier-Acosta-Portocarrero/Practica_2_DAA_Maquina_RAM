@@ -20,7 +20,7 @@ class HaltInstruction : public Instruction {
   HaltInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~HaltInstruction() = default;
   
-  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) override;
+  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) override;
 };
 
 #endif

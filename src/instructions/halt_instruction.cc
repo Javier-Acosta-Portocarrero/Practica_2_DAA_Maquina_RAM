@@ -12,7 +12,7 @@
 
 #include "halt_instruction.h"
 
-void HaltInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+void HaltInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   // PC = -1 --> STOP
   data.SetProgramCounter(-1);
 }

@@ -14,12 +14,15 @@
 #define OPERAND_H_
 
 #include "../data_memory/data_memory.h"
+#include "../program_memory/program_memory.h"
+
+class ProgramMemory;
 
 class Operand {
  public:
   virtual ~Operand() = default;
 
-  virtual float GetOperandValue(const DataMemory& data) const = 0;
+  virtual float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const = 0;
   // int because -1 means constant operand, etc.
   virtual int GetOperandIndex(const DataMemory& data) const = 0;
 };

@@ -20,7 +20,7 @@ class ConstantOperand : public Operand {
   ConstantOperand(float value) : value_{value} {}
   ~ConstantOperand() = default;
 
-  float GetOperandValue(const DataMemory& data) const override { return value_;}
+  float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override { return value_;}
   int GetOperandIndex(const DataMemory& data) const override { return -1;}
  private:
   float value_{0.0};

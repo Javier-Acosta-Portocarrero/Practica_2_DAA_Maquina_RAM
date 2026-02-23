@@ -16,7 +16,7 @@
 #include "load_input_tape.h"
 #include <string>
 
-class LoadInputTapeFile : LoadInputTape {
+class LoadInputTapeFile : public LoadInputTape {
  public:
   LoadInputTapeFile(const std::string& file_path) : file_path_{file_path} {}
   LoadInputTapeFile() = default;
@@ -26,7 +26,6 @@ class LoadInputTapeFile : LoadInputTape {
 
   void SetFilePath(const std::string& file_path) { file_path_ = file_path;};
  private:
-  InputTape tape_;
   std::string file_path_{""};
 };
 

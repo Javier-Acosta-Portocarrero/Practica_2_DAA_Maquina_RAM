@@ -18,7 +18,7 @@
 class LoadProgramRAM {
   public:
   ~LoadProgramRAM() = default;
-  virtual std::unique_ptr<const ProgramMemory> Load() = 0;
+  virtual ProgramMemory Load() = 0;
 };
 
 #endif

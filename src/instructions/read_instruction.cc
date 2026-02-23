@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <sstream>
 
-void ReadInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+void ReadInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   unsigned resgister_index = GetOperand() -> GetOperandIndex(data);
   if (resgister_index == 0) {
     std::string error_message{std::string("READ instruction can not read into accumulator (R0), line ") +

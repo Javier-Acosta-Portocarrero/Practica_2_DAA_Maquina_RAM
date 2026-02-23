@@ -14,13 +14,13 @@
 #include <stdexcept>
 #include <sstream>
 
-void WriteInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+void WriteInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   unsigned resgister_index = GetOperand() -> GetOperandIndex(data);
   if (resgister_index == 0) {
     std::string error_message{std::string("WRITE instruction can not write from accumulator (R0), line ") +
                                           std::to_string(GetLine())};
     throw std::logic_error(error_message);
   } 
-  float output_value = GetOperand() -> GetOperandValue(data);
+  float output_value = GetOperand() -> GetOperandValue(data, instructions);
   output_tape.AddOutput(output_value);
 }

@@ -12,8 +12,8 @@
 
 #include "div_instruction.h"
 
-void DivInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
-  float divisor_value = GetOperand() -> GetOperandValue(data); 
+void DivInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
+  float divisor_value = GetOperand() -> GetOperandValue(data, instructions); 
   // Register 0 --> accumulator
   data.SetRegisterValue(0, data.GetRegisterValue(0) / divisor_value);
 }

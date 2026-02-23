@@ -20,7 +20,7 @@ class ReadInstruction : public Instruction {
   ReadInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~ReadInstruction() = default;
   
-  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) override;
+  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) override;
 };
 
 #endif

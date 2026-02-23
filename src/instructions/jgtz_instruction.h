@@ -20,7 +20,7 @@ class JgtzInstruction : public Instruction {
   JgtzInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~JgtzInstruction() = default;
   
-  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) override;
+  void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) override;
 };
 
 #endif

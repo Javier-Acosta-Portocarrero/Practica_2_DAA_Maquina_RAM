@@ -14,8 +14,8 @@
 #include <stdexcept>
 #include <string>
 
-void StoreInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
-  unsigned resgister_index = GetOperand() -> GetOperandIndex(data);
+void StoreInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
+  unsigned resgister_index = GetOperand() -> GetOperandIndex(data, instructions);
   if (resgister_index == 0) {
     std::string error_message{std::string("STORE instruction can not write to accumulator (R0), line ") +
                                           std::to_string(GetLine())};

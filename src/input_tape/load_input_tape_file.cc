@@ -23,7 +23,7 @@ bool LoadInputTapeFile::LoadTape() {
   while (file_input_stream >> input) {
     inputs.push(input);
   }
-  tape_ = InputTape{inputs};
+  SetInputTape(InputTape{inputs});
   file_input_stream.close();
   return true;
 }

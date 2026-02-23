@@ -12,12 +12,12 @@
 
 #include "jzero_instruction.h"
 
-void JzeroInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) {
+void JzeroInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   // Register 0 --> accumulator
   float accumulator_value = data.GetRegisterValue(0);
   if (accumulator_value == 0.0) {
     // We allow registers to store addresses to jump.
-    int address = static_cast<int>(GetOperand() -> GetOperandValue(data)); 
+    int address = static_cast<int>(GetOperand() -> GetOperandValue(data, instructions)); 
     data.SetProgramCounter(address);
   }
 }

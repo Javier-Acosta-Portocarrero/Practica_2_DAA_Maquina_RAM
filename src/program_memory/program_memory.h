@@ -20,41 +20,26 @@
 #include <stdexcept>
 
 #include "../instructions/instruction.h"
-#include "../instructions/add_instruction.cc"
-#include "../instructions/div_instruction.cc"
-#include "../instructions/halt_instruction.cc"
-#include "../instructions/jgtz_instruction.cc"
-#include "../instructions/jump_instruction.cc"
-#include "../instructions/jzero_instruction.cc"
-#include "../instructions/load_instruction.cc"
-#include "../instructions/mul_instruction.cc"
-#include "../instructions/read_instruction.cc"
-#include "../instructions/store_instruction.cc"
-#include "../instructions/sub_instruction.cc"
-#include "../instructions/write_instruction.cc"
-#include "../operands/constant_operand.h"
-#include "../operands/direct_addressing_operand.cc"
-#include "../operands/indirect_addressing_operand.cc"
 
 class LoadProgramRAMFile;
+
 class ProgramMemory {
-public:
+ public:
   ProgramMemory() = default;
   ~ProgramMemory() = default;
 
   size_t GetProgramSize() const {return instrucciones_.size();}
-
   Instruction& GetInstruction(unsigned pc) { return *instrucciones_.at(pc);}
+  unsigned GetLineByLabel(const std::string& label) const { return label_table_.at(label); }
 
-  const std::string& GetLabelLine(unsigned pc) const { return label_table_.at(pc); }
-
-  private:
+ private:
   friend class LoadProgramRAMFile;
   void AddInstruction(unsigned line, std::unique_ptr<Instruction> instruction) {instrucciones_.emplace(line, std::move(instruction));}
   void AddLabel(unsigned line, const std::string& label) {label_table_.emplace(line, label);}
+  const std::map<std::string, unsigned>& GetTableLabel() const { return label_table_; }
+
   std::map<unsigned, std::unique_ptr<Instruction>> instrucciones_;
-  std::map<unsigned, std::string> label_table_;
-  const std::map<unsigned, std::string>& GetTableLabel() const { return label_table_; }
+  std::map<std::string, unsigned> label_table_;
 };
 
 #endif

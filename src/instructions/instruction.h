@@ -17,6 +17,9 @@
 #include "../data_memory/data_memory.h"
 #include "../input_tape/input_tape.h"
 #include "../output_tape/output_tape.h"
+#include "../program_memory/program_memory.h"
+
+class ProgramMemory;
 
 class Instruction {
  public:
@@ -24,7 +27,7 @@ class Instruction {
   virtual ~Instruction() { delete operand_;}
   
   // Must throw an exception if the instruction is illegal
-  virtual void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape) = 0;
+  virtual void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) = 0;
 
   Operand* GetOperand() { return operand_;}
   unsigned GetLine() const { return line_;}

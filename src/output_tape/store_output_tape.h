@@ -17,11 +17,13 @@
 
 class StoreOutputTape {
  public:
+  StoreOutputTape(const OutputTape& tape) : tape_{tape} {}
   virtual ~StoreOutputTape() = default;
 
   virtual bool StoreTape() const = 0;
 
   void SetOutputTape(const OutputTape& tape) { tape_ = tape;}
+  OutputTape GetOutputTape() const { return tape_;}
  private:
   OutputTape tape_;
 };
