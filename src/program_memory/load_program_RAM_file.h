@@ -17,14 +17,43 @@
 
 class LoadProgramRAMFile : public LoadProgramRAM {
   public:
+  /**
+   * @brief Construye el archivo  que contiene el programa RAM
+   * 
+   * @param program_path 
+   */
   LoadProgramRAMFile(const std::string& program_path) : program_path_(program_path) {}
   LoadProgramRAMFile() = default;
   ~LoadProgramRAMFile() = default;
+  /**
+   * @brief Establece el archivo del programa RAM
+   * 
+   * @param program_path 
+   */
   inline void SetProgram(const std::string& program_path) {program_path_ = program_path;}
+  /**
+   * @brief Carga el programa RAM linea a linea
+   * 
+   * @return ProgramMemory 
+   */
   ProgramMemory Load() override;
   private:
   std::string program_path_;
+  /**
+   * @brief Separa y clasifica cada elemento de la linea para obtener las instrucciones a ejecutar
+   * 
+   * @param line 
+   * @param line_number 
+   * @param program 
+   * @return Instruction* 
+   */
   Instruction* ParseInstruction(const std::string& line, unsigned line_number, ProgramMemory& program);
+  /**
+   * @brief Separa y clasifica cada elemento de la instrucción para obtener el tipo de operando a crear
+   * 
+   * @param text 
+   * @return Operand* 
+   */
   Operand* ParseOperand(const std::string& text); 
 };
 

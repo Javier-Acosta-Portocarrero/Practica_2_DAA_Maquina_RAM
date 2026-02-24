@@ -22,6 +22,12 @@ class StoreOutputTapeFile : public StoreOutputTape {
   StoreOutputTapeFile() = default;
   ~StoreOutputTapeFile() = default;
 
+  /**
+   * @brief Almacena el contenido de nuestra cinta de salida en su respectivo archivo 
+   * 
+   * @return true 
+   * @return false 
+   */
   bool StoreTape() const override;
   
   inline void SetFilePath(const std::string& file_path) { file_path_ = file_path;}

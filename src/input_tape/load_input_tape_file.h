@@ -18,12 +18,26 @@
 
 class LoadInputTapeFile : public LoadInputTape {
  public:
+ /**
+  * @brief Construye el objeto que representa el archivo de la cinta de entrada
+  * 
+  * @param file_path 
+  */
   LoadInputTapeFile(const std::string& file_path) : file_path_{file_path} {}
   LoadInputTapeFile() = default;
   ~LoadInputTapeFile() = default;
-
+  /**
+   * @brief Construye nuestra cola de cinta de entrada con los datos extraidos del archivo
+   * 
+   * @return true 
+   * @return false 
+   */
   bool LoadTape() override;
-
+  /**
+   * @brief  Establece el objeto que representa el archivo de la cinta de entrada con otro camino
+   * 
+   * @param file_path 
+   */
   inline void SetFilePath(const std::string& file_path) { file_path_ = file_path;};
  private:
   std::string file_path_{""};

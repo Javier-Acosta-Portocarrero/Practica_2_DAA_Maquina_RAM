@@ -19,10 +19,26 @@
 
 class ArithmeticControlLogicUnit {
  public:
+ /**
+  * @brief Construye un objeto ACLU
+  * 
+  */
   ArithmeticControlLogicUnit() = default;
   ~ArithmeticControlLogicUnit() = default;
-
+  /**
+   * @brief Obtiene el número de instrucciones ejecutadas
+   * 
+   * @return unsigned 
+   */
   inline unsigned GetNumberInstructions() const {return numero_instrucciones_ejecutadas_;}
+  /**
+   * @brief Ejecuta cada instrucción teniendo en cuenta el estado del pc antes y déspues de dicha ejecución para avanzar secuencialmente o no
+   * 
+   * @param program 
+   * @param data_memory 
+   * @param input_tape 
+   * @param output_tape 
+   */
   void ExecuteInstructions(ProgramMemory& program, DataMemory& data_memory, InputTape& input_tape, OutputTape& output_tape);
  private:
   unsigned numero_instrucciones_ejecutadas_ {0};

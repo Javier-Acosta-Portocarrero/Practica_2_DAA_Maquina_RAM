@@ -17,10 +17,19 @@
 
 class InputTape {
  public:
+ /**
+  * @brief Construye una cinta de entrada a partir de una cola
+  * 
+  * @param tape 
+  */
   InputTape(const std::queue<float>& tape) : tape_(tape) {}
   InputTape() = default;
   ~InputTape() = default;
-  
+  /**
+   * @brief Avanza una posición el "cabezal" de lectura de la cinta de entrada (cola)
+   * 
+   * @return float 
+   */
   float GetNextInput();
  private:
   std::queue<float> tape_;

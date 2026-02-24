@@ -22,8 +22,21 @@ class Operand {
  public:
   virtual ~Operand() = default;
 
+  /**
+   * @brief Obtiene el valor que almacena el tipo de operando
+   * 
+   * @param data 
+   * @param instructions 
+   * @return float 
+   */
   virtual float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const = 0;
   // int because -1 means constant operand, etc.
+  /**
+   * @brief Obtiene el índice del tipo de operando (si es que tiene)
+   * 
+   * @param data 
+   * @return int 
+   */
   virtual int GetOperandIndex(const DataMemory& data) const = 0;
   // Needed for vector registers, to know if we need to write into a specific position.
   virtual bool OperandIsDirect() const = 0;

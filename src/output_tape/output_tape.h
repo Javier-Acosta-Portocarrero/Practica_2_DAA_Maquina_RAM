@@ -21,7 +21,17 @@ class OutputTape {
   OutputTape() = default;
   ~OutputTape() = default;
   
+  /**
+   * @brief Mueva el cabezal de escritura
+   * 
+   * @return float 
+   */
   float GetNextOutput();
+  /**
+   * @brief Añade elementos a la cinta de salida
+   * 
+   * @param output 
+   */
   void AddOutput(const float& output);
   inline bool EmptyTape() const { return tape_.empty();}
  private:

@@ -20,6 +20,14 @@ class DivInstruction : public Instruction {
   DivInstruction(Operand* operand, unsigned line) : Instruction(operand, line) {}
   ~DivInstruction() = default;
   
+  /**
+   * @brief El operando divide a R0 y el resultado se almacena en R0
+   * 
+   * @param data 
+   * @param input_tape 
+   * @param output_tape 
+   * @param instructions 
+   */
   void Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) override;
 };
 

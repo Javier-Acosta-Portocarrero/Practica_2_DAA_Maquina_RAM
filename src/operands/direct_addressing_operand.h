@@ -25,7 +25,12 @@ class DirectAddressingOperand : public Operand {
   float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override;
   inline int GetOperandIndex(const DataMemory& data) const override { return register_index_;}
   inline Operand* GetIndexOperand() const {return index_vector_register_;}
-
+  /**
+   * @brief Comprueba que el operando directo sea []
+   * 
+   * @return true 
+   * @return false 
+   */
   inline bool HasIndexOperand() const { return index_vector_register_ != nullptr; }
   inline bool OperandIsDirect() const override { return true;}
  private:
