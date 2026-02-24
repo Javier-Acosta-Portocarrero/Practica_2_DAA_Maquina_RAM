@@ -27,6 +27,8 @@
 #include "../operands/direct_addressing_operand.h"
 #include "../operands/indirect_addressing_operand.h"
 #include "../operands/label_operand.h"
+// Modificación
+#include "../instructions/exp_instruction.h"
 
 //#include <iostream>
 ProgramMemory LoadProgramRAMFile::Load() {
@@ -138,6 +140,11 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
   }
   if (opcode == "WRITE") {
     return new WriteInstruction(operand, line_number);
+  }
+  
+  // Modificación
+  if (opcode == "EXP") {
+    return new ExpInstruction(operand, line_number);
   }
   throw std::runtime_error("Opcode desconocido: " + opcode);
 }
