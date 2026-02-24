@@ -67,6 +67,7 @@ ProgramMemory LoadProgramRAMFile::Load() {
 
 Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsigned line_number, ProgramMemory& program) {
   std::string currentLine = line;
+  // Check for label and remove it from the line if it exists. We also check for duplicate labels.
   size_t colon_pos = currentLine.find(':');
   if (colon_pos != std::string::npos) {
     std::string label = currentLine.substr(0, colon_pos);
@@ -94,14 +95,14 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
   iss >> opcode;
   std::string operand_text;
   iss >> operand_text;
-
+  // First we check for instructions without operand (HALT)
   if (opcode == "HALT") {
     if (!operand_text.empty()) {
       throw std::runtime_error("HALT no admite operando");
     }
     return new HaltInstruction(nullptr, line_number);
   }
-
+  // Then we check for jump instructions, which have a label as operand.
   Operand* jump_operand = new LabelOperand(operand_text);
   if (opcode == "JUMP") {
     return new JumpInstruction(jump_operand, line_number);
@@ -112,7 +113,7 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
   if (opcode == "JGTZ") {
     return new JgtzInstruction(jump_operand, line_number);
   }
-
+  // Finally, we check for instructions with a non label operand (all the rest)
   Operand* operand = ParseOperand(operand_text);
   if (opcode == "LOAD") {
     return new LoadInstruction(operand, line_number);
@@ -143,15 +144,17 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
 
 Operand* LoadProgramRAMFile::ParseOperand(const std::string& text) {
   if (text.empty()) return nullptr;
-  
+  // Constants 
   if (text[0] == '=') {
     float value = std::stof(text.substr(1));
     return new ConstantOperand(value);
   }
+  // Indirect addressing
   if (text[0] == '*') {
     int index = std::stoi(text.substr(1));
     return new IndirectAddressingOperand(index);
   }
+  // Direct addressing. We need to check if there's a bracket to determine if it's a vector access or not.
   auto bracket_pos = text.find('[');
   std::string base_str = (bracket_pos != std::string::npos) ? text.substr(0, bracket_pos) : text;
   // if (base_str[0] == 'R') base_str.erase(0,1);  

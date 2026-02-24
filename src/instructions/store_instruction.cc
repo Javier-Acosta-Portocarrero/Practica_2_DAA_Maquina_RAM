@@ -28,13 +28,14 @@ void StoreInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTa
   }
 
   float input_value = data.GetRegisterScalar(0);
+  // Case Ri o Ri[x]
   if (operand->OperandIsDirect()) {
     auto* direct = dynamic_cast<DirectAddressingOperand*>(operand);
     if (!(direct->HasIndexOperand())) {
       // STORE Ri
       data.SetRegisterScalar(register_index, input_value);
     } else {
-      // STORE Ri[x]  -> x puede ser =i, i o *i
+      // STORE Ri[x]  -> x can be =i, i o *i
       int offset = static_cast<int>(direct->GetIndexOperand()->GetOperandValue(data, instructions));
       data.SetRegisterValue(register_index, offset, input_value);
     }

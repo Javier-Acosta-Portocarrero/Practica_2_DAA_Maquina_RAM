@@ -28,14 +28,14 @@ void ReadInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTap
   }
 
   float input_value = input_tape.GetNextInput();
-  // Caso Ri o Ri[x]
+  // Case Ri o Ri[x]
   if (operand->OperandIsDirect()) {
     auto* direct = dynamic_cast<DirectAddressingOperand*>(operand);
     if (!(direct->HasIndexOperand())) {
       // READ Ri
       data.SetRegisterScalar(register_index, input_value);
     } else {
-      // READ Ri[x]  -> x puede ser =i, i o *i
+      // READ Ri[x]  -> x can be =i, i o *i
       int offset = static_cast<int>(direct->GetIndexOperand()->GetOperandValue(data, instructions));
       data.SetRegisterValue(register_index, offset, input_value);
     }

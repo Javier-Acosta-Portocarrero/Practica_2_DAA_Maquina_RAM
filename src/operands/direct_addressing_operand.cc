@@ -18,7 +18,7 @@ float DirectAddressingOperand::GetOperandValue(const DataMemory& data, const Pro
   if (!index_vector_register_) {
     return data.GetRegisterScalar(register_index_);
   }
-  // Ri[x]  -> x puede ser =i, i o *i
+  // Ri[x]  -> x can be =i, i o *i
   int index = static_cast<int>(index_vector_register_->GetOperandValue(data, instructions));
 
   return data.GetRegisterValue(register_index_, index);
