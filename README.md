@@ -2,6 +2,10 @@
 
 ## Descripción general
 
+Autores:
+- Javier Acosta Portocarrero
+- Gabriel Gallardo Noda
+
 Se ha implementado una **máquina RAM** siguiendo las instrucciones proporcionadas en el enunciado de la práctica, los **principios SOLID** y el **patrón estrategia**. El programa permite analizar la complejidad de los programas RAM introducidos a través de la cantidad de instrucciones ejecutadas para cada uno, además imprime los errores producidos si el programa no es válido junto con la línea que provocó el error.
 
 ## Requisitos
