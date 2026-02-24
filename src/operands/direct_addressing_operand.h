@@ -20,7 +20,7 @@ class DirectAddressingOperand : public Operand {
  public:
   DirectAddressingOperand(unsigned register_index) : register_index_{register_index} {}
   DirectAddressingOperand(unsigned register_index, Operand* index_vector_register) : register_index_{register_index}, index_vector_register_{index_vector_register} {}
-  ~DirectAddressingOperand() = default;
+  ~DirectAddressingOperand();
 
   float GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const override;
   inline int GetOperandIndex(const DataMemory& data) const override { return register_index_;}

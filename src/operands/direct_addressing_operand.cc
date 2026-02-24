@@ -12,6 +12,14 @@
 
 #include "direct_addressing_operand.h"
 
+DirectAddressingOperand::~DirectAddressingOperand() {
+  // If the index vector register is not null, we delete it to avoid memory leaks.
+  if (index_vector_register_) {
+    delete index_vector_register_;
+    index_vector_register_ = nullptr;
+  }
+}
+
 float DirectAddressingOperand::GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const {
   // If the register is not valid, the method GetRegisterValue will throw an exception.
   // Ri
