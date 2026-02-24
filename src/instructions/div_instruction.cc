@@ -19,6 +19,9 @@
 
 void DivInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   float divisor_value = GetOperand() -> GetOperandValue(data, instructions); 
+  if (divisor_value == 0) {
+    throw std::logic_error("Can't divide by 0, line " + std::to_string(GetLine()));
+  }
   // Register 0 --> accumulator
   data.SetRegisterScalar(0, data.GetRegisterScalar(0) / divisor_value);
 }
