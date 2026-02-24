@@ -39,7 +39,7 @@ float DataMemory::GetRegisterValue(unsigned reg, unsigned register_index) const 
   if (reg > 32) {
     throw std::out_of_range("Invalid register");
   }
-  if (register_index > memory_[reg].size()) {
+  if (register_index >= memory_[reg].size()) {
     throw std::out_of_range("Invalid register index");
   }
   return memory_[reg][register_index];

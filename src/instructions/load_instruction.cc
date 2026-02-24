@@ -22,8 +22,7 @@
 void LoadInstruction::Execute(DataMemory& data, InputTape& input_tape, OutputTape& output_tape, const ProgramMemory& instructions) {
   unsigned resgister_index = GetOperand() -> GetOperandIndex(data);
   if (resgister_index == 0) {
-    std::string error_message{std::string("LOAD instruction can not load from accumulator (R0), line ") +
-                                          std::to_string(GetLine())};
+    std::string error_message{std::string("LOAD instruction can not load from accumulator (R0), line ") + std::to_string(GetLine())};
     throw std::logic_error(error_message);
   }
   float value_to_charge = GetOperand() -> GetOperandValue(data, instructions); 
