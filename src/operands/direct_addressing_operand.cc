@@ -14,9 +14,12 @@
 
 float DirectAddressingOperand::GetOperandValue(const DataMemory& data, const ProgramMemory& instructions) const {
   // If the register is not valid, the method GetRegisterValue will throw an exception.
+  // Ri
   if (!index_vector_register_) {
     return data.GetRegisterScalar(register_index_);
   }
-  return data.GetRegisterValue(register_index_, index_vector_register_);
-  
+  // Ri[x]  -> x puede ser =i, i o *i
+  int index = static_cast<int>(index_vector_register_->GetOperandValue(data, instructions));
+
+  return data.GetRegisterValue(register_index_, index);
 }

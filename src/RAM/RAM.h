@@ -25,6 +25,7 @@ class RAM {
   ~RAM() = default;
 
   inline OutputTape GetOutputTape() const { return output_tape_;};
+  inline unsigned GetNumberInstructionsExecuted() const { return ACLU.GetNumberInstructions();}
 
   void Execute();
 

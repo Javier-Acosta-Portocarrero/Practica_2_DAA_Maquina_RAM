@@ -11,6 +11,7 @@
 // Contiene la implementación de arithmetic_control_logic_unit.
 
 #include "arithmetic_control_logic_unit.h"
+//#include <iostream>
 
 void ArithmeticControlLogicUnit::ExecuteInstructions(ProgramMemory& program, DataMemory& data_memory, InputTape& input_tape, OutputTape& output_tape) {
   numero_instrucciones_ejecutadas_ = 0;
@@ -18,6 +19,7 @@ void ArithmeticControlLogicUnit::ExecuteInstructions(ProgramMemory& program, Dat
 
   while (data_memory.GetProgramCounter() <= program.GetProgramSize() && data_memory.GetProgramCounter() != -1) {
     unsigned pc = data_memory.GetProgramCounter();
+    //std::cout << "PC: " << pc << ", Executing instruction at line " << pc << std::endl;
     Instruction& instruction = program.GetInstruction(pc);
     // Guardamos el PC antes de ejecutar
     unsigned old_pc = pc;

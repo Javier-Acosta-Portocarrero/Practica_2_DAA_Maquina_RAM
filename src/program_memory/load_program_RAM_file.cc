@@ -28,6 +28,7 @@
 #include "../operands/indirect_addressing_operand.h"
 #include "../operands/label_operand.h"
 
+//#include <iostream>
 ProgramMemory LoadProgramRAMFile::Load() {
   std::ifstream program_input_stream{program_path_};
   if (!program_input_stream.is_open()) {
@@ -86,6 +87,7 @@ Instruction* LoadProgramRAMFile::ParseInstruction(const std::string& line, unsig
     if (first == std::string::npos) return nullptr;  
     currentLine.erase(0, first);
   }
+  //std::cout << "Parsing instruction at line " << line_number << ": " << currentLine << std::endl;
 
   std::istringstream iss(currentLine);
   std::string opcode;
@@ -152,15 +154,16 @@ Operand* LoadProgramRAMFile::ParseOperand(const std::string& text) {
   }
   auto bracket_pos = text.find('[');
   std::string base_str = (bracket_pos != std::string::npos) ? text.substr(0, bracket_pos) : text;
-  if (base_str[0] == 'R') base_str.erase(0,1);  
+  // if (base_str[0] == 'R') base_str.erase(0,1);  
   int base_index = std::stoi(base_str);
   if (bracket_pos != std::string::npos) {
+    // If there's a bracket, we need to parse the index operand
     auto closing = text.find(']');
-    int vector_index = std::stoi(text.substr(bracket_pos + 1, closing - bracket_pos - 1));
-    return new DirectAddressingOperand(base_index, vector_index);
-  }
-  else {
-    int index = std::stoi(text);
-    return new DirectAddressingOperand(index);
+    std::string index_text = text.substr(bracket_pos + 1, closing - bracket_pos - 1);
+    Operand* index_operand = ParseOperand(index_text);
+    return new DirectAddressingOperand(base_index, index_operand);
+  } else {
+    // If it's just a number, it's a direct register access (Ri)
+    return new DirectAddressingOperand(base_index);
   }
 }
